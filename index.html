@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Зоряна Танчак — Вихователь</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sage: #7a9e87;
+    --sage-light: #a8c4b0;
+    --sage-dark: #4a7057;
+    --cream: #f5f0e8;
+    --text: #2c2418;
+    --text-muted: #7a6a58;
+    --white: #fefcf8;
+    --brown: #5c4a3a;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { font-family:'Nunito',sans-serif; background:var(--cream); color:var(--text); overflow-x:hidden; }
+
+  /* ── NAV ─────────────────────────────── */
+  nav {
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:rgba(245,240,232,0.95); backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(122,158,135,0.2);
+    padding:0 5%; height:66px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .nav-brand { font-family:'Playfair Display',serif; font-size:1.3rem; font-weight:600; color:var(--sage-dark); text-decoration:none; }
+  .nav-links { display:flex; gap:1.75rem; list-style:none; }
+  .nav-links a { font-size:0.85rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-muted); text-decoration:none; transition:color .25s; }
+  .nav-links a:hover { color:var(--sage-dark); }
+
+  /* ── HERO ────────────────────────────── */
+  .hero {
+    min-height:100vh; display:grid; grid-template-columns:1fr 1fr;
+    align-items:center; padding:80px 5% 60px; position:relative; overflow:hidden;
+  }
+  .hero::before {
+    content:''; position:absolute; top:-20%; right:-10%;
+    width:60%; height:120%;
+    background:radial-gradient(ellipse at center,rgba(122,158,135,0.1) 0%,transparent 70%);
+    pointer-events:none;
+  }
+  .hero-left { padding-right:5rem; }
+  .hero-name {
+    font-family:'Playfair Display',serif; font-size:clamp(3.2rem,5.5vw,5rem);
+    font-weight:400; line-height:1.1; color:var(--text);
+    animation:fadeUp .8s .15s ease both;
+  }
+  .hero-name span { display:block; color:var(--sage-dark); }
+  .hero-subtitle {
+    margin-top:1.5rem; font-size:1.05rem; font-weight:400; line-height:1.8;
+    color:var(--text-muted); max-width:440px; animation:fadeUp .8s .3s ease both;
+  }
+  .hero-credo {
+    margin-top:2rem; font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:400;
+    color:var(--sage-dark); line-height:1.7; padding-left:1.25rem;
+    border-left:3px solid var(--sage-light); animation:fadeUp .8s .45s ease both;
+  }
+  .hero-stats { margin-top:3rem; display:flex; gap:3rem; animation:fadeUp .8s .6s ease both; }
+  .stat-item { display:flex; flex-direction:column; }
+  .stat-num { font-family:'Playfair Display',serif; font-size:2.8rem; font-weight:400; line-height:1; color:var(--sage-dark); }
+  .stat-label { font-size:0.8rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-muted); margin-top:5px; }
+
+  /* ── HERO PHOTO ──────────────────────── */
+  .hero-right {
+    display:flex; justify-content:center; align-items:center;
+    animation:fadeIn 1s .3s ease both;
+  }
+  .photo-wrap {
+    position:relative; width:min(420px,90%);
+  }
+  .photo-wrap img {
+    width:100%; border-radius:12px; display:block;
+    filter:sepia(5%) saturate(95%);
+    box-shadow:0 40px 100px rgba(44,36,24,0.22);
+    object-fit:cover; aspect-ratio:3/4;
+  }
+  .photo-badge {
+    position:absolute; bottom:-16px; left:-16px;
+    background:var(--sage-dark); color:var(--white);
+    padding:16px 20px; border-radius:8px;
+    font-size:0.85rem; font-weight:600; letter-spacing:0.05em;
+    box-shadow:0 10px 28px rgba(74,112,87,0.4); line-height:1.5;
+  }
+  .photo-badge strong { display:block; font-family:'Playfair Display',serif; font-size:1.6rem; font-weight:400; }
+
+  /* ── SECTIONS ────────────────────────── */
+  section { padding:110px 5%; }
+  .section-label { font-size:0.8rem; font-weight:700; letter-spacing:0.22em; text-transform:uppercase; color:var(--sage); margin-bottom:0.8rem; }
+  .section-title { font-family:'Playfair Display',serif; font-size:clamp(2.2rem,3.8vw,3.2rem); font-weight:400; line-height:1.2; color:var(--text); }
+  .section-title span { color:var(--sage-dark); }
+  .section-lead { margin-top:1.1rem; font-size:1.05rem; font-weight:400; line-height:1.8; color:var(--text-muted); max-width:640px; }
+  hr.divider { border:none; height:1px; background:linear-gradient(to right,transparent,var(--sage-light),transparent); }
+
+  /* ── ABOUT ───────────────────────────── */
+  #about { background:var(--white); }
+  .about-grid { margin-top:4rem; display:grid; grid-template-columns:1fr 1fr; gap:4.5rem; align-items:start; }
+  .about-text p { font-size:1.02rem; font-weight:400; line-height:1.9; color:var(--text); margin-bottom:1.3rem; }
+  .values-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; }
+  .value-card {
+    background:var(--white); border-radius:20px; padding:2rem 1.8rem;
+    border:none; transition:transform .35s,box-shadow .35s;
+    box-shadow:0 2px 12px rgba(74,112,87,0.07);
+    position:relative; overflow:hidden;
+  }
+  .value-card::before {
+    content:''; position:absolute; top:0; left:0; width:4px; height:0;
+    background:linear-gradient(180deg,var(--sage),var(--sage-dark));
+    border-radius:0 0 4px 4px; transition:height .35s ease;
+  }
+  .value-card:hover { transform:translateY(-6px); box-shadow:0 18px 42px rgba(74,112,87,0.16); }
+  .value-card:hover::before { height:60%; }
+  .value-card:hover { transform:translateY(-5px); box-shadow:0 14px 36px rgba(122,158,135,0.16); }
+  .value-icon {
+    width:54px; height:54px; margin-bottom:1.2rem; display:flex; align-items:center; justify-content:center;
+    background:linear-gradient(135deg,rgba(122,158,135,0.18),rgba(74,112,87,0.08));
+    border-radius:15px;
+  }
+  .value-icon svg { width:28px; height:28px; }
+  .value-title { font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:600; color:var(--sage-dark); margin-bottom:0.45rem; }
+  .value-desc { font-size:0.88rem; color:var(--text-muted); line-height:1.65; }
+
+  /* ── METHODS ─────────────────────────── */
+  #blog { background:var(--cream); }
+  .posts-grid { margin-top:4rem; display:grid; grid-template-columns:repeat(3,1fr); gap:2rem; }
+  .post-card { background:var(--white); border-radius:10px; overflow:hidden; border:1px solid rgba(122,158,135,0.12); transition:transform .3s,box-shadow .3s; cursor:pointer; }
+  .post-card:hover { transform:translateY(-7px); box-shadow:0 24px 64px rgba(44,36,24,0.13); }
+  .post-card-top { height:170px; display:flex; align-items:center; justify-content:center; font-size:3.5rem; }
+  .post-card-top.c1 { background:linear-gradient(135deg,#d4e8db,#b8d4c0); }
+  .post-card-top.c2 { background:linear-gradient(135deg,#e8ddd4,#d4c4b4); }
+  .post-card-top.c3 { background:linear-gradient(135deg,#dde8f0,#c4d8e8); }
+  .post-body { padding:1.9rem; }
+  .post-meta { font-size:0.78rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--sage); margin-bottom:0.7rem; display:flex; gap:1rem; align-items:center; flex-wrap:wrap; }
+  .post-meta span { color:var(--text-muted); font-weight:400; letter-spacing:0; text-transform:none; font-size:0.85rem; }
+  .post-title { font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:600; line-height:1.3; color:var(--text); margin-bottom:0.8rem; }
+  .post-excerpt { font-size:0.93rem; color:var(--text-muted); line-height:1.8; font-weight:400; }
+  .post-tag { display:inline-block; margin-top:1.25rem; font-size:0.74rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--sage-dark); background:rgba(122,158,135,0.12); border-radius:50px; padding:5px 14px; }
+  .read-more { display:inline-flex; align-items:center; gap:6px; margin-top:1rem; font-size:0.85rem; font-weight:700; color:var(--sage-dark); text-transform:uppercase; letter-spacing:0.1em; cursor:pointer; border:none; background:none; padding:0; }
+  .read-more:hover { text-decoration:underline; }
+
+  /* ── MODAL ───────────────────────────── */
+  .modal-overlay { display:none; position:fixed; inset:0; z-index:200; background:rgba(44,36,24,0.65); backdrop-filter:blur(5px); align-items:center; justify-content:center; padding:2rem; }
+  .modal-overlay.open { display:flex; }
+  .modal { background:var(--white); border-radius:14px; max-width:760px; width:100%; max-height:88vh; overflow-y:auto; padding:3.5rem; position:relative; animation:modalIn .3s ease; }
+  .modal-close { position:absolute; top:1.5rem; right:1.5rem; background:none; border:none; cursor:pointer; font-size:1.5rem; color:var(--text-muted); line-height:1; transition:color .2s; }
+  .modal-close:hover { color:var(--text); }
+  .modal-label { font-size:0.78rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--sage); margin-bottom:0.8rem; }
+  .modal-title { font-family:'Playfair Display',serif; font-size:1.9rem; font-weight:600; line-height:1.25; color:var(--text); margin-bottom:1.5rem; padding-bottom:1.25rem; border-bottom:1px solid rgba(122,158,135,0.2); }
+  .modal-body { font-size:1rem; font-weight:400; line-height:1.9; color:var(--text); }
+  .modal-body h3 { font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:600; color:var(--sage-dark); margin:1.75rem 0 0.65rem; }
+  .modal-body p { margin-bottom:1rem; }
+  .modal-body ul { margin-left:1.5rem; margin-bottom:1rem; }
+  .modal-body ul li { margin-bottom:0.45rem; color:var(--text-muted); }
+  .modal-body ul li strong { color:var(--text); }
+  .modal-info-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:1.25rem 0; }
+  .modal-info-box { background:var(--cream); border-radius:8px; padding:1rem 1.25rem; border:1px solid rgba(122,158,135,0.15); }
+  .modal-info-box .lbl { font-size:0.74rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--sage); margin-bottom:0.35rem; }
+  .modal-info-box .val { font-size:0.97rem; font-weight:600; color:var(--text); }
+
+  /* ── EDUCATION ───────────────────────── */
+  #education { background:var(--white); }
+  .edu-block { margin-top:3.5rem; }
+  .edu-item { display:grid; grid-template-columns:100px 1fr; gap:2rem; padding:2.25rem 0; border-bottom:1px solid rgba(122,158,135,0.15); }
+  .edu-item:last-child { border-bottom:none; }
+  .edu-year { font-family:'Playfair Display',serif; font-size:1.8rem; font-weight:400; color:var(--sage); padding-top:4px; }
+  .edu-content-title { font-family:'Playfair Display',serif; font-size:1.25rem; font-weight:600; color:var(--text); margin-bottom:0.5rem; line-height:1.35; }
+  .edu-content-sub { font-size:0.93rem; color:var(--text-muted); font-weight:400; line-height:1.75; margin-bottom:0.75rem; }
+  .edu-badge { display:inline-block; font-size:0.75rem; font-weight:700; letter-spacing:0.08em; color:var(--sage-dark); background:rgba(122,158,135,0.12); border-radius:50px; padding:5px 14px; }
+  .edu-dl { display:inline-flex; align-items:center; gap:8px; margin-left:0.75rem; font-size:0.75rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--white); background:var(--sage-dark); border-radius:50px; padding:5px 16px; text-decoration:none; transition:background .2s; }
+  .edu-dl:hover { background:var(--brown); }
+
+  /* ── CERTIFICATES ────────────────────── */
+  #certs { background:var(--cream); }
+  .certs-grid { margin-top:3.5rem; display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:1.5rem; }
+  .cert-card { background:var(--white); border-radius:10px; padding:1.75rem; border:1px solid rgba(122,158,135,0.15); display:flex; flex-direction:column; gap:1.25rem; transition:box-shadow .25s; }
+  .cert-card:hover { box-shadow:0 10px 32px rgba(122,158,135,0.15); }
+  .cert-card-top { display:flex; gap:1.1rem; align-items:flex-start; }
+  .cert-icon { font-size:1.9rem; flex-shrink:0; margin-top:3px; }
+  .cert-title { font-size:1rem; font-weight:700; color:var(--text); line-height:1.4; margin-bottom:0.4rem; }
+  .cert-sub { font-size:0.85rem; color:var(--text-muted); font-weight:400; line-height:1.65; }
+  .cert-hours { display:inline-block; margin-top:0.5rem; font-size:0.74rem; font-weight:700; color:var(--sage-dark); background:rgba(122,158,135,0.12); border-radius:50px; padding:4px 12px; }
+  .cert-actions { display:flex; gap:0.6rem; }
+  .btn-view { flex:1; text-align:center; font-size:0.83rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--sage-dark); background:rgba(122,158,135,0.1); border:1.5px solid rgba(122,158,135,0.35); border-radius:8px; padding:10px 16px; text-decoration:none; transition:background .2s,color .2s; }
+  .btn-view:hover { background:var(--sage-dark); color:var(--white); border-color:var(--sage-dark); }
+  .btn-dl { font-size:1.1rem; color:var(--sage-dark); background:rgba(122,158,135,0.1); border:1.5px solid rgba(122,158,135,0.35); border-radius:8px; width:44px; display:flex; align-items:center; justify-content:center; text-decoration:none; transition:background .2s,color .2s; flex-shrink:0; }
+  .btn-dl:hover { background:var(--sage-dark); color:var(--white); border-color:var(--sage-dark); }
+
+  /* ── CONTACT ─────────────────────────── */
+  #contact { background:var(--sage-dark); color:var(--white); text-align:center; }
+  #contact .section-label { color:var(--sage-light); }
+  #contact .section-title { color:var(--white); }
+  #contact .section-title span { color:var(--sage-light); }
+  .contact-text { margin:1.35rem auto 0; font-size:1.05rem; font-weight:400; line-height:1.8; color:rgba(255,255,255,0.72); max-width:500px; }
+  .contact-place { margin-top:2.5rem; font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--sage-light); line-height:1.7; }
+
+  /* ── FOOTER ──────────────────────────── */
+  footer { background:var(--brown); padding:2rem 5%; display:flex; align-items:center; justify-content:space-between; }
+  footer p { font-size:0.82rem; color:rgba(245,240,232,0.45); font-weight:400; }
+  .footer-name { font-family:'Playfair Display',serif; font-size:1rem; color:rgba(245,240,232,0.65); }
+
+  /* ── ANIMATIONS ──────────────────────── */
+  @keyframes fadeUp { from{opacity:0;transform:translateY(26px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+  @keyframes modalIn { from{opacity:0;transform:scale(.96) translateY(14px)} to{opacity:1;transform:scale(1) translateY(0)} }
+  .reveal { opacity:0; transform:translateY(30px); transition:opacity .7s ease,transform .7s ease; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+
+  /* ── RESPONSIVE ──────────────────────── */
+  @media(max-width:960px){
+    .hero{grid-template-columns:1fr;padding-top:100px;text-align:center}
+    .hero-left{padding-right:0}
+    .hero-subtitle{max-width:100%;margin:1.5rem auto 0}
+    .hero-credo{text-align:left}
+    .hero-stats{justify-content:center}
+    .hero-right{margin-top:3.5rem}
+    .about-grid{grid-template-columns:1fr;gap:3rem}
+    .posts-grid{grid-template-columns:1fr}
+    .modal-info-row{grid-template-columns:1fr}
+  }
+  @media(max-width:640px){
+    .nav-links li:nth-child(-n+3){display:none}
+    .edu-item{grid-template-columns:70px 1fr;gap:1.25rem}
+    .certs-grid{grid-template-columns:1fr}
+  }
+
+  /* ── EVENTS ─────────────────────────── */
+  #events { background:var(--white); }
+  .event-hero {
+    margin-top:4rem; background:linear-gradient(135deg,#2c3e2d 0%,#4a7057 60%,#6a9070 100%);
+    border-radius:18px; padding:3rem 3.5rem 3.5rem;
+    position:relative; overflow:hidden;
+    box-shadow:0 8px 32px rgba(42,60,45,0.25);
+  }
+  .event-hero-inner { position:relative; z-index:1; max-width:800px; }
+  .event-hero::before {
+    content:''; position:absolute; top:-40%; right:-5%;
+    width:40%; height:200%;
+    background:radial-gradient(ellipse,rgba(255,255,255,0.06) 0%,transparent 70%);
+    pointer-events:none;
+  }
+  .event-title-main {
+    font-family:'Playfair Display',serif; font-size:clamp(1.6rem,3vw,2.4rem);
+    font-weight:600; line-height:1.25; color:#fff; margin-bottom:1rem;
+  }
+  .event-title-main em { font-style:italic; color:var(--sage-light); }
+  .event-desc { font-size:1rem; font-weight:400; line-height:1.8; color:rgba(255,255,255,0.78); max-width:560px; }
+  .event-goals { margin-top:1.5rem; display:flex; flex-wrap:wrap; gap:0.6rem; }
+  .event-goal-tag {
+    background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2);
+    border-radius:50px; padding:6px 14px; font-size:0.8rem; font-weight:600;
+    color:rgba(255,255,255,0.88); letter-spacing:0.04em;
+  }
+  .event-angel { font-size:5rem; opacity:0.25; }
+  .event-photos {
+    margin-top:2.5rem; display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem;
+  }
+  .event-photo-card {
+    border-radius:10px; overflow:hidden; position:relative;
+    box-shadow:0 8px 28px rgba(44,36,24,0.14); cursor:pointer;
+    transition:transform .3s, box-shadow .3s;
+    aspect-ratio:4/3;
+    height:220px;
+  }
+  .event-photo-card:hover { transform:translateY(-6px) scale(1.01); box-shadow:0 20px 50px rgba(44,36,24,0.2); }
+  .event-photo-card img { width:100%; height:100%; object-fit:cover; display:block; filter:sepia(5%) saturate(92%); }
+  .event-photo-caption {
+    position:absolute; bottom:0; left:0; right:0;
+    background:linear-gradient(to top, rgba(44,36,24,0.75) 0%, transparent 100%);
+    padding:1.5rem 1rem 1rem;
+    font-size:0.82rem; font-weight:600; color:#fff; letter-spacing:0.04em;
+  }
+  /* lightbox */
+  .lightbox { display:none; position:fixed; inset:0; z-index:300; background:rgba(20,15,10,0.92); align-items:center; justify-content:center; padding:2rem; }
+  .lightbox.open { display:flex; }
+  .lightbox img { max-width:90vw; max-height:90vh; border-radius:8px; object-fit:contain; box-shadow:0 30px 80px rgba(0,0,0,0.5); }
+  .lightbox-close { position:absolute; top:1.5rem; right:1.5rem; background:none; border:none; color:#fff; font-size:2rem; cursor:pointer; opacity:0.7; transition:opacity .2s; }
+  .lightbox-close:hover { opacity:1; }
+
+
+  /* ── PHOTO CAROUSEL / GRID ───────────────── */
+  .photo-carousel {
+    margin-top:2.5rem;
+    display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem;
+  }
+  .event-photo-card { opacity:1 !important; transform:none !important; }
+  .photo-carousel.cols-2 { grid-template-columns:repeat(2,1fr); }
+  .photo-carousel.cols-2 .event-photo-card { aspect-ratio:4/3; }
+  .event-section-divider {
+    border:none; height:1px;
+    background:linear-gradient(to right,transparent,rgba(122,158,135,0.3),transparent);
+    margin:3rem 0;
+  }
+  .event-card-warm {
+    background:linear-gradient(135deg,#e8ddd4 0%,#d4c4b0 100%);
+  }
+  .event-card-blue {
+    background:linear-gradient(135deg,#1a3a5c 0%,#2d5a8c 60%,#3a70a8 100%);
+  }
+
+
+  .event-sub-title {
+    margin: 1.5rem 0 1rem;
+    padding: 0.8rem 1.2rem;
+    background: rgba(255,255,255,0.08);
+    border-left: 3px solid rgba(255,255,255,0.4);
+    border-radius: 0 8px 8px 0;
+  }
+  .event-sub-title span {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.9);
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+  .event-sub-desc {
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.7);
+    margin: 0;
+    line-height: 1.5;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-brand">Зоряна Танчак</a>
+  <ul class="nav-links">
+    <li><a href="#about">Про мене</a></li>
+    <li><a href="#blog">Матеріали</a></li>
+    <li><a href="#events">Заняття</a></li><li><a href="#education">Освіта</a></li>
+    <li><a href="#certs">Сертифікати</a></li>
+    <li><a href="#contact">Контакт</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ─────────────────────────────── -->
+<section class="hero">
+  <div class="hero-left">
+    
+    <h1 class="hero-name">
+      Зоряна<br><span>Танчак</span>
+    </h1>
+    <p class="hero-subtitle">
+      Вихователь Оріхівського обласного центру соціально-психологічної реабілітації дітей Запорізької обласної ради. Спеціаліст першої категорії.
+    </p>
+    <blockquote class="hero-credo">
+      «Кожна дитина — це цінність. Моє завдання — стати для неї тим безпечним простором, де вона навчиться піклуватися про своє тіло, берегти свою душу та поважати свою особистість»
+    </blockquote>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-num">15</span>
+        <span class="stat-label">Років стажу</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">I</span>
+        <span class="stat-label">Категорія</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">2</span>
+        <span class="stat-label">Програми</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="photo-wrap">
+      <img src="hero.jpg" alt="Зоряна Танчак">
+
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ── ABOUT ─────────────────────────────── -->
+<section id="about">
+  <div class="section-label reveal">Про мене</div>
+  <h2 class="section-title reveal">Мій шлях<br><span>у педагогіці</span></h2>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>Я — вихователь із досвідом роботи в закладах інтернатного типу та закладах середньої освіти. Попередній досвід у школі та інтернаті сформував мій професійний світогляд і став міцним фундаментом для подальшого зростання.</p>
+      <p>З 2024 року працюю вихователем у комунальному закладі «Оріхівський обласний центр соціально-психологічної реабілітації дітей» Запорізької обласної ради. Маю першу категорію, претендую на вищу.</p>
+      <p>У практичній діяльності успішно впроваджую здоров'язберігаючі технології, фокусуючись на формуванні у вихованців, що перебувають у складних життєвих обставинах, ціннісного ставлення до власного «Я» та здоров'я. Системний підхід до діагностики та реабілітації дітей з особливими освітніми та соціальними потребами став основою для претендування на вищу кваліфікаційну категорію.</p>
+    </div>
+    <div class="reveal">
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28">
+              <path d="M12 2L3 6v6c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V6L12 2z" stroke="#4a7057" stroke-width="1.8" stroke-linejoin="round" fill="rgba(122,158,135,0.12)"/>
+              <path d="M9 12l2 2 4-4" stroke="#4a7057" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="value-title">Безпека та Довіра</div>
+          <div class="value-desc">Фундамент кожної виховної взаємодії з дитиною</div>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">
+          <svg viewBox="0 0 24 24" fill="none" width="28" height="28">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z" stroke="#4a7057" stroke-width="1.8" fill="rgba(122,158,135,0.15)" stroke-linejoin="round"/>
+          </svg>
+        </div>
+          <div class="value-title">Прийняття та Гідність</div>
+          <div class="value-desc">Безумовна цінність кожної особистості</div>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">
+          <svg viewBox="0 0 24 24" fill="none" width="28" height="28">
+            <path d="M12 2a10 10 0 0 1 0 20A10 10 0 0 1 12 2z" stroke="#4a7057" stroke-width="1.8" fill="rgba(122,158,135,0.12)"/>
+            <path d="M12 6v6l4 2" stroke="#4a7057" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+          <div class="value-title">Здоров'я як цілісність</div>
+          <div class="value-desc">Тіло, душа і особистість у єдності</div>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">
+          <svg viewBox="0 0 24 24" fill="none" width="28" height="28">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="#4a7057" stroke-width="1.8" stroke-linecap="round"/>
+            <circle cx="9" cy="7" r="4" stroke="#4a7057" stroke-width="1.8" fill="rgba(122,158,135,0.12)"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" stroke="#4a7057" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+          <div class="value-title">Емпатія та Відповідальність</div>
+          <div class="value-desc">Дія через серце та професіоналізм</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ── METHODS ────────────────────────────── -->
+<section id="blog">
+  <div class="section-label reveal">Методичні матеріали</div>
+  <h2 class="section-title reveal">Методичні<br><span>надбання</span></h2>
+  <p class="section-lead reveal">Виступи на засіданнях методичних об'єднань та авторські виховні програми.</p>
+
+  <div class="posts-grid">
+    <article class="post-card reveal" onclick="openModal('speech')">
+      <div class="post-card-top c1">&#127908;</div>
+      <div class="post-body">
+        <div class="post-meta">Виступ на МО <span>Березень 2026</span></div>
+        <h3 class="post-title">Системний підхід до планування методичної роботи</h3>
+        <p class="post-excerpt">Забезпечення тісного взаємозв'язку між усіма видами та формами підвищення кваліфікації педагогів у плануванні методичної роботи закладу.</p>
+        <span class="post-tag">Виступ на МО</span><br>
+        <button class="read-more" onclick="event.stopPropagation();openModal('speech')">Читати далі &rarr;</button>
+      </div>
+    </article>
+
+    <article class="post-card reveal" onclick="openModal('art')">
+      <div class="post-card-top c2">&#127912;</div>
+      <div class="post-body">
+        <div class="post-meta">Авторська програма <span>2025–2026</span></div>
+        <h3 class="post-title">«Мистецтво відновлення»</h3>
+        <p class="post-excerpt">Програма для дітей 8–14 років. Емоційне відновлення, розвиток стресостійкості та навичок самодопомоги через творчі, тілесні й релаксаційні практики. 12 занять.</p>
+        <span class="post-tag">Виховна програма</span><br>
+        <button class="read-more" onclick="event.stopPropagation();openModal('art')">Читати далі &rarr;</button>
+      </div>
+    </article>
+
+    <article class="post-card reveal" onclick="openModal('breath')">
+      <div class="post-card-top c3">&#127807;</div>
+      <div class="post-body">
+        <div class="post-meta">Авторська програма <span>2025–2026</span></div>
+        <h3 class="post-title">«Дихання спокою»</h3>
+        <p class="post-excerpt">Програма дихальних практик для дітей 6–12 років. Формування навичок саморегуляції та емоційної рівноваги. 8 занять: від знайомства з диханням до «пам'ятки спокою».</p>
+        <span class="post-tag">Виховна програма</span><br>
+        <button class="read-more" onclick="event.stopPropagation();openModal('breath')">Читати далі &rarr;</button>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ── MODAL: ВИСТУП ──────────────────────── -->
+<div class="modal-overlay" id="modal-speech">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('speech')">&#10005;</button>
+    <div class="modal-label">Виступ на засіданні методичного об'єднання &bull; 2026 р.</div>
+    <h2 class="modal-title">Системний підхід та забезпечення тісного взаємозв'язку з усіма видами й формами підвищення кваліфікації педагогів у плануванні методичної роботи</h2>
+    <div class="modal-body">
+      <div class="modal-info-row">
+        <div class="modal-info-box"><div class="lbl">Захід</div><div class="val">Засідання методичного об'єднання</div></div>
+        <div class="modal-info-box"><div class="lbl">Рік</div><div class="val">2026</div></div>
+      </div>
+      <p>Ефективна методична робота педагога — це не хаотична сукупність заходів, а цілісна система, де кожна форма підвищення кваліфікації органічно доповнює інші. Системний підхід передбачає узгодженість між курсовою підготовкою, самоосвітою, роботою методичних об'єднань та практичною діяльністю педагога.</p>
+      <h3>Ключові принципи системного підходу</h3>
+      <ul>
+        <li>Узгодженість усіх форм підвищення кваліфікації з єдиною педагогічною метою закладу</li>
+        <li>Наступність між курсами ЗОІППО та практичним впровадженням у закладі</li>
+        <li>Рефлексія та відстеження результативності кожного виду навчання</li>
+        <li>Колективне та індивідуальне планування у єдиній системі координат</li>
+      </ul>
+      <h3>Форми підвищення кваліфікації та їх взаємозв'язок</h3>
+      <ul>
+        <li><strong>Курсова підготовка (дистанційна)</strong> — свідоцтво ЗОІППО (75 год., 2025): глибоке опрацювання теорії, що стало основою для практичних розробок</li>
+        <li><strong>Дистанційні тренінги</strong> — три тренінги ЗОІППО (2025–2026): профілактика емоційного вигорання, інклюзивне навчання, нейропедагогіка</li>
+        <li><strong>Самоосвіта</strong> — опрацювання фахової літератури, онлайн-курси, застосування нових технологій у практиці</li>
+        <li><strong>Робота МО</strong> — обмін досвідом, обговорення методичних знахідок, взаємовідвідування</li>
+        <li><strong>Практична реалізація</strong> — розробка та впровадження авторських програм «Мистецтво відновлення» та «Дихання спокою»</li>
+      </ul>
+      <h3>Власний досвід як приклад системності</h3>
+      <p>За 2024–2026 роки пройдено курси підвищення кваліфікації (75 год.) та три тренінги загальним обсягом 48 год. Здобуті компетентності не лишились «на папері», а стали безпосередньою основою для розробки двох авторських виховних програм, які впроваджені у практику роботи з вихованцями центру.</p>
+      <h3>Висновок</h3>
+      <p>Системний підхід до підвищення кваліфікації означає, що кожен курс, тренінг чи виступ на МО є не самоціллю, а ланкою єдиного ланцюга професійного зростання. Лише у такій взаємодії формується справжня педагогічна майстерність.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── MODAL: МИСТЕЦТВО ВІДНОВЛЕННЯ ────────── -->
+<div class="modal-overlay" id="modal-art">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('art')">&#10005;</button>
+    <div class="modal-label">Авторська виховна програма &bull; Розробник: Зоряна Танчак</div>
+    <h2 class="modal-title">Програма «Мистецтво відновлення»</h2>
+    <div class="modal-body">
+      <div class="modal-info-row">
+        <div class="modal-info-box"><div class="lbl">Цільова аудиторія</div><div class="val">Діти 8–14 років</div></div>
+        <div class="modal-info-box"><div class="lbl">Кількість занять</div><div class="val">12 занять</div></div>
+        <div class="modal-info-box"><div class="lbl">Форми роботи</div><div class="val">Групові, індивідуальні, виховні години</div></div>
+        <div class="modal-info-box"><div class="lbl">Ключові компетентності</div><div class="val">Емоційно-етична, соціальна, здоров'язбережувальна</div></div>
+      </div>
+      <h3>Актуальність</h3>
+      <p>У сучасних умовах діти часто перебувають у стані емоційного напруження, тривоги та перевтоми. Програма «Мистецтво відновлення» спрямована на створення безпечного середовища, у якому дитина може виразити свої емоції, навчитися їх розуміти та знаходити внутрішні ресурси для відновлення.</p>
+      <h3>Мета програми</h3>
+      <p>Сприяти емоційному відновленню дітей, розвитку стресостійкості та формуванню навичок самодопомоги через творчі, тілесні та релаксаційні практики.</p>
+      <h3>Завдання програми</h3>
+      <ul>
+        <li>Формувати вміння розпізнавати власні емоції</li>
+        <li>Знижувати рівень тривожності та емоційного напруження</li>
+        <li>Навчати дітей способів самозаспокоєння</li>
+        <li>Розвивати здатність до самовираження</li>
+        <li>Створювати безпечне та підтримуюче середовище</li>
+        <li>Сприяти розвитку позитивного ставлення до себе</li>
+      </ul>
+      <h3>Методи роботи</h3>
+      <ul>
+        <li>Арт-терапевтичні техніки: метод «Колаж особистості», тілесно-орієнтовані вправи, казкотерапія самоцінності</li>
+        <li>Дихальні вправи та релаксаційні практики</li>
+        <li>Ігрові методи, бесіда та рефлексія</li>
+        <li>Щоденний моніторинг емоційного стану (метод «Соціальних історій»)</li>
+        <li>Методика «Хвилинки ресурсу»: поєднання дихальних вправ і позитивних афірмацій</li>
+      </ul>
+      <h3>Зміст програми — 12 занять</h3>
+      <ul>
+        <li><strong>Я і мій емоційний стан</strong> — Заняття 1: Знайомство з емоціями; Заняття 2: Безпечний простір</li>
+        <li><strong>Робота з напругою</strong> — Заняття 3: Тіло і напруга; Заняття 4: Вивільнення емоцій</li>
+        <li><strong>Самозаспокоєння</strong> — Заняття 5: Дихальні практики; Заняття 6: Релаксація</li>
+        <li><strong>Пошук ресурсів</strong> — Заняття 7: Моя сила; Заняття 8: Підтримка</li>
+        <li><strong>Самовираження</strong> — Заняття 9: Творче вираження; Заняття 10: Відпускання</li>
+        <li><strong>Закріплення</strong> — Заняття 11: Мій ресурс; Заняття 12: Підсумкове заняття</li>
+      </ul>
+      <h3>Очікувані результати</h3>
+      <ul>
+        <li>Діти вміють розпізнавати та називати свої емоції</li>
+        <li>Знижується рівень тривожності</li>
+        <li>Сформовані навички самозаспокоєння</li>
+        <li>Покращується взаємодія у колективі</li>
+        <li>Підвищується впевненість у собі</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ── MODAL: ДИХАННЯ СПОКОЮ ──────────────── -->
+<div class="modal-overlay" id="modal-breath">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('breath')">&#10005;</button>
+    <div class="modal-label">Авторська виховна програма &bull; Розробник: Зоряна Танчак</div>
+    <h2 class="modal-title">Програма «Дихання спокою»</h2>
+    <div class="modal-body">
+      <div class="modal-info-row">
+        <div class="modal-info-box"><div class="lbl">Цільова аудиторія</div><div class="val">Діти 6–12 років</div></div>
+        <div class="modal-info-box"><div class="lbl">Кількість занять</div><div class="val">8 занять</div></div>
+      </div>
+      <h3>Актуальність</h3>
+      <p>У сучасних умовах діти часто переживають емоційне напруження та тривожність. Дихальні вправи допомагають стабілізувати емоційний стан та формують навички саморегуляції.</p>
+      <h3>Мета програми</h3>
+      <p>Формування у дітей навичок саморегуляції та емоційної рівноваги через дихальні практики.</p>
+      <h3>Завдання програми</h3>
+      <ul>
+        <li>Навчити дітей дихальним технікам</li>
+        <li>Знизити рівень тривожності</li>
+        <li>Розвивати самоконтроль та покращити концентрацію</li>
+        <li>Сформувати навички самозаспокоєння</li>
+      </ul>
+      <h3>Зміст програми — 8 занять</h3>
+      <ul>
+        <li><strong>Знайомство з диханням (Заняття 1–2)</strong> — «Квітка і свічка»; «Дихання животиком»; «Надуй кульку»; обговорення стану; релаксація</li>
+        <li><strong>Контроль дихання (Заняття 3–4)</strong> — «Квадратне дихання» (4–4–4–4); малювання квадрату; «Дихання з рахунком»; «Тиха хвиля»</li>
+        <li><strong>Дихання і емоції (Заняття 5–6)</strong> — «Хмаринка тривоги»; «Видих — відпускаю»; поєднання вправ; «Дихаємо разом»</li>
+        <li><strong>Закріплення (Заняття 7–8)</strong> — «Моє улюблене дихання»; «Коли мені важко»; створення «пам'ятки спокою»</li>
+      </ul>
+      <h3>Очікувані результати</h3>
+      <ul>
+        <li>Зниження тривожності</li>
+        <li>Розвиток саморегуляції</li>
+        <li>Покращення емоційного стану</li>
+        <li>Підвищення концентрації</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<hr class="divider">
+
+<!-- ── EVENTS ─────────────────────────────── -->
+<section id="events">
+  <div class="section-label reveal">Виховна робота</div>
+  <h2 class="section-title reveal">Заняття<br><span>з вихованцями</span></h2>
+  <p class="section-lead reveal">Практична реалізація виховних програм у роботі з дітьми Оріхівського центру.</p>
+
+  <div class="event-hero reveal">
+    <div class="event-hero-inner">
+      <h3 class="event-title-main">«Світло, що не згасає:<br><em>Янголи стійкості»</em></h3>
+      <p class="event-desc">
+        Виховний захід до Дня Героїв Небесної Сотні. Вихованці виготовляли янголів-охоронців і розміщували їх на символічному «Дереві пам'яті».
+      </p>
+      <div class="event-goals">
+        <span class="event-goal-tag">&#9741; Національна гідність</span>
+        <span class="event-goal-tag">&#9825; Причетність до мирного майбутнього</span>
+        <span class="event-goal-tag">&#9670; Емоційна саморегуляція</span>
+      </div>
+    </div>
+  <div class="photo-carousel">
+    <div class="event-photo-card" onclick="openLightbox('angels-01.jpg')">
+      <img src="angels-01.jpg" alt="Виступ вихованця">
+      <div class="event-photo-caption">Виступ вихованця</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('angels-02.jpg')">
+      <img src="angels-02.jpg" alt="Виготовлення янголів">
+      <div class="event-photo-caption">Виготовлення янголів-охоронців</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('angels-03.jpg')">
+      <img src="angels-03.jpg" alt="Дерево пам'яті">
+      <div class="event-photo-caption">Дерево пам'яті з вихованцями</div>
+    </div>
+  </div>
+  </div>
+
+
+<div class="event-hero reveal event-card-warm">
+    <div class="event-hero-inner">
+      <h3 class="event-title-main" style="color:#2c2418;">«Мова — джерело<br><em style="color:#7a6a58;">моєї сили та ідентичності»</em></h3>
+      <p class="event-desc" style="color:rgba(44,36,24,0.75);">
+        Захід до Дня української писемності та мови. Вихованці у вишиванках демонстрували любов до рідного слова, писали листи-побажання, складали добрі слова про мову рідного краю.
+      </p>
+      <div class="event-goals">
+        <span class="event-goal-tag" style="background:rgba(92,74,58,0.1);border-color:rgba(92,74,58,0.25);color:#5c4a3a;">&#9741; Мова як генетичний код сили</span>
+        <span class="event-goal-tag" style="background:rgba(92,74,58,0.1);border-color:rgba(92,74,58,0.25);color:#5c4a3a;">&#9825; Засіб емоційного зцілення</span>
+        <span class="event-goal-tag" style="background:rgba(92,74,58,0.1);border-color:rgba(92,74,58,0.25);color:#5c4a3a;">&#9670; Національна ідентичність</span>
+      </div>
+        </div>
+
+  <div class="photo-carousel">
+    <div class="event-photo-card" onclick="openLightbox('language-01.jpg')">
+      <img src="language-01.jpg" alt="День писемності та мови">
+      <div class="event-photo-caption">Вихованці у вишиванках</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('language-02.jpg')">
+      <img src="language-02.jpg" alt="Урок рідної мови">
+      <div class="event-photo-caption">Урок рідної мови</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('language-03.jpg')">
+      <img src="language-03.jpg" alt="Читаємо разом">
+      <div class="event-photo-caption">Читаємо разом</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('language-04.jpg')">
+      <img src="language-06.jpg" alt="Спільний захід">
+      <div class="event-photo-caption">Спільний виступ вихованців</div>
+
+    <div class="event-sub-title">
+      <span>«День рідної мови: Слово, що об'єднує»</span>
+      <p class="event-sub-desc">Урочистий загальний захід центру. Старші вихованці читали вірші й оповіді про силу рідного слова, демонструючи злагодженість і єдність колективу.</p>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('language-05.jpg')">
+      <img src="language-07.jpg" alt="Виступ на сцені">
+      <div class="event-photo-caption">Урочистий виступ</div>
+    </div>
+    
+    <div class="event-photo-card" onclick="openLightbox('language-03.jpg')">
+      <img src="language-05.jpg" alt="Діти зі словами">
+      <div class="event-photo-caption">Серця з добрими словами</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('language-06.jpg')">
+      <img src="language-08.jpg" alt="Вихованці слухають">
+      <div class="event-photo-caption">Вихованці на заході</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('language-07.jpg')">
+      <img src="language-09.jpg" alt="Загальне фото">
+      <div class="event-photo-caption">Разом — сильніше</div>
+    </div>
+      </div>
+  </div>
+  </div>
+    <div class="event-photo-card" onclick="openLightbox('language-04.jpg')">
+      <img src="language-04.jpg" alt="Листи-побажання рідній мові">
+      <div class="event-photo-caption">Листи-побажання рідній мові</div>
+    </div>
+
+
+<div class="event-hero reveal" style="background:linear-gradient(135deg,#4a2c1a 0%,#7a4a2a 50%,#c8783c 100%);">
+    <div class="event-hero-inner">
+      <h3 class="event-title-main">«Великдень:<br><em>Світло в кожному серці»</em></h3>
+      <p class="event-desc">
+        Великдень — свято відродження, надії та світла. У контексті методичної теми це свято розкрите не лише через традиції, а як шлях до внутрішнього оновлення та турботу про свою душу й тіло. Вихованці разом із педагогами вийшли на освячення паски — і це стало справжнім моментом єдності та радості.
+      </p>
+      <div class="event-goals">
+        <span class="event-goal-tag">&#9741; Духовне відродження</span>
+        <span class="event-goal-tag">&#9825; Внутрішнє оновлення</span>
+        <span class="event-goal-tag">&#9670; Збереження традицій</span>
+        <span class="event-goal-tag">&#9670; Турбота про душу і тіло</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="photo-carousel cols-2">
+    <div class="event-photo-card" onclick="openLightbox('easter-01.jpg')">
+      <img src="easter-01.jpg" alt="Великдень — освячення паски">
+      <div class="event-photo-caption">Спільне освячення паски</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('easter-02.jpg')">
+      <img src="easter-02.jpg" alt="Великдень — колектив">
+      <div class="event-photo-caption">Єдність та радість свята</div>
+    </div>
+  </div>
+
+
+<div class="event-hero reveal" style="background:linear-gradient(135deg,#0d3b6e 0%,#1a5ca8 55%,#f5c800 100%);">
+    <div class="event-hero-inner">
+      <h3 class="event-title-main">«Прапор — символ<br><em>єдності та захисту»</em></h3>
+      <p class="event-desc">
+        День Державного Прапора — це не просто офіційна дата, а потужний інструмент патріотичного виховання. Ми розглядаємо прапор як символ єдності, захисту та особистої гордості дитини за свою країну. Вихованці збирали пазли із зображенням символів України, малювали, слухали розповіді про значення синьо-жовтого прапора — і разом тримали великий стяг у руках.
+      </p>
+      <div class="event-goals">
+        <span class="event-goal-tag">&#9741; Патріотичне виховання</span>
+        <span class="event-goal-tag">&#9825; Символ єдності та захисту</span>
+        <span class="event-goal-tag">&#9670; Особиста гордість за країну</span>
+        <span class="event-goal-tag">&#9670; Знання державної символіки</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="photo-carousel" style="grid-template-columns:repeat(3,1fr);">
+    <div class="event-photo-card" onclick="openLightbox('flag-01.jpg')">
+      <img src="flag-01.jpg" alt="Великий прапор">
+      <div class="event-photo-caption">Весь колектив із прапором</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('flag-02.jpg')">
+      <img src="flag-02.jpg" alt="Презентація про прапор">
+      <div class="event-photo-caption">Заняття з презентацією</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('flag-03.jpg')">
+      <img src="flag-03.jpg" alt="Заняття у залі">
+      <div class="event-photo-caption">Вихованці слухають</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('flag-04.jpg')">
+      <img src="flag-04.jpg" alt="Вихователь веде заняття">
+      <div class="event-photo-caption">Вихователь веде заняття</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('flag-05.jpg')">
+      <img src="flag-05.jpg" alt="Збираємо пазл">
+      <div class="event-photo-caption">Збираємо пазл-символіку</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('flag-06.jpg')">
+      <img src="flag-06.jpg" alt="Серця за Україну">
+      <div class="event-photo-caption">Серця за Україну</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('flag-07.jpg')">
+      <img src="flag-07.jpg" alt="Вихованці у вишиванках">
+      <div class="event-photo-caption">Разом у вишиванках</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('flag-08.jpg')">
+      <img src="flag-08.jpg" alt="Робота з пазлами">
+      <div class="event-photo-caption">Складаємо пазли разом</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('flag-09.jpg')">
+      <img src="flag-09.jpg" alt="Написи на асфальті">
+      <div class="event-photo-caption">UKRAINE на асфальті</div>
+    </div>
+  </div>
+
+
+<div class="event-hero reveal" style="background:linear-gradient(135deg,#3a1f0a 0%,#7a4010 50%,#c87828 80%,#e8a840 100%);">
+    <div class="event-hero-inner">
+      <h3 class="event-title-main">«Майстер-шеф:<br><em>Смак здоров'я та радості»</em></h3>
+      <p class="event-desc">
+        Практичне заняття з кулінарії, де поєдналися соціальна адаптація, трудове виховання та культура харчування. Вихованці самостійно нарізали овочі, відміряли інгредієнти та готували салат — з фартухами і поварськими шапочками. Головний акцент: їжа — це паливо для нашого тіла, а вміння готувати — це вияв турботи про себе.
+      </p>
+      <div class="event-goals">
+        <span class="event-goal-tag">&#9741; Соціальна адаптація</span>
+        <span class="event-goal-tag">&#9825; Трудове виховання</span>
+        <span class="event-goal-tag">&#9670; Культура харчування</span>
+        <span class="event-goal-tag">&#9670; Турбота про себе</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="photo-carousel" style="grid-template-columns:repeat(3,1fr);">
+    <div class="event-photo-card" onclick="openLightbox('chef-01.jpg')">
+      <img src="chef-01.jpg" alt="Вихователь і маленькі шефи">
+      <div class="event-photo-caption">Вихователь і маленькі шефи</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('chef-02.jpg')">
+      <img src="chef-02.jpg" alt="Нарізаємо овочі">
+      <div class="event-photo-caption">Нарізаємо овочі разом</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('chef-03.jpg')">
+      <img src="chef-03.jpg" alt="Маленький кухар">
+      <div class="event-photo-caption">Маленький шеф за роботою</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('chef-04.jpg')">
+      <img src="chef-04.jpg" alt="Змішуємо інгредієнти">
+      <div class="event-photo-caption">Змішуємо інгредієнти</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('chef-05.jpg')">
+      <img src="chef-05.jpg" alt="Готовий салат">
+      <div class="event-photo-caption">Готовий салат — наша гордість!</div>
+    </div>
+  </div>
+
+
+<div class="event-hero reveal" style="background:linear-gradient(135deg,#1a3a1a 0%,#2d6b2d 50%,#4a9e4a 85%,#6fc46f 100%);">
+    <div class="event-hero-inner">
+      <h3 class="event-title-main">«Активне дозвілля —<br><em>ресурс сили та здоров'я»</em></h3>
+      <p class="event-desc">
+        Дозвілля — це не просто «вільний час», а найпотужніший простір для реабілітації. Саме під час відпочинку дитина розслабляється, знімає внутрішній захист — і в цей момент вихователь може м'яко коригувати її самооцінку, формувати відчуття безпеки та радості від власного тіла й руху. Скейт-парк, ліплення з пластиліну, ігри на снігу, прогулянки до річки, розвивальні завдання на екрані — усе це цілеспрямований виховний простір.
+      </p>
+      <div class="event-goals">
+        <span class="event-goal-tag">&#9741; Реабілітація через відпочинок</span>
+        <span class="event-goal-tag">&#9825; Корекція самооцінки</span>
+        <span class="event-goal-tag">&#9670; Фізичне та емоційне здоров'я</span>
+        <span class="event-goal-tag">&#9670; Розвиток дрібної моторики</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="photo-carousel" style="grid-template-columns:repeat(3,1fr);">
+    <div class="event-photo-card" onclick="openLightbox('active-01.jpg')">
+      <img src="active-01.jpg" alt="Скейт-парк">
+      <div class="event-photo-caption">Скейт-парк: рух і свобода</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('active-02.jpg')">
+      <img src="active-02.jpg" alt="Скейт-парк восени">
+      <div class="event-photo-caption">Активний відпочинок у парку</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('active-03.jpg')">
+      <img src="active-03.jpg" alt="Радість руху">
+      <div class="event-photo-caption">Радість руху на свіжому повітрі</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('active-04.jpg')">
+      <img src="active-04.jpg" alt="Прогулянка до річки">
+      <div class="event-photo-caption">Прогулянка до річки</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('active-05.jpg')">
+      <img src="active-05.jpg" alt="На мосту над водою">
+      <div class="event-photo-caption">На мосту — спокій і краса природи</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('active-06.jpg')">
+      <img src="active-06.jpg" alt="Зимові розваги">
+      <div class="event-photo-caption">Ліпимо сніговика разом</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('active-07.jpg')">
+      <img src="active-07.jpg" alt="Зима">
+      <div class="event-photo-caption">Зима — теж час для радості</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('active-08.jpg')">
+      <img src="active-08.jpg" alt="Ліплення з пластиліну">
+      <div class="event-photo-caption">Ліплення з пластиліну</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('active-09.jpg')">
+      <img src="active-09.jpg" alt="Творча робота">
+      <div class="event-photo-caption">Дрібна моторика — творча робота</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('active-10.jpg')">
+      <img src="active-10.jpg" alt="Знайди відмінності">
+      <div class="event-photo-caption">«Знайдіть 10 відмінностей»</div>
+
+    <div class="event-photo-card" onclick="openLightbox('active-11.jpg')">
+      <img src="active-11.jpg" alt="Ігри на подвір'ї">
+      <div class="event-photo-caption">Ігри на подвір'ї</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('active-12.jpg')">
+      <img src="active-12.jpg" alt="Каруселька взимку">
+      <div class="event-photo-caption">Каруселька взимку</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('active-13.jpg')">
+      <img src="active-13.jpg" alt="Прогулянка в парку">
+      <div class="event-photo-caption">Прогулянка в парку</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('active-14.jpg')">
+      <img src="active-14.jpg" alt="Чаювання з вихованцями">
+      <div class="event-photo-caption">Чаювання з вихованцями</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('active-15.jpg')">
+      <img src="active-15.jpg" alt="Разом весело!">
+      <div class="event-photo-caption">Разом весело!</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('active-16.jpg')">
+      <img src="active-16.jpg" alt="Прогулянка вздовж річки">
+      <div class="event-photo-caption">Прогулянка вздовж річки</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('active-17.jpg')">
+      <img src="active-17.jpg" alt="Рухливі ігри надворі">
+      <div class="event-photo-caption">Рухливі ігри надворі</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('active-18.jpg')">
+      <img src="active-18.jpg" alt="Командна гра з мотузками">
+      <div class="event-photo-caption">Командна гра з мотузками</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('active-19.jpg')">
+      <img src="active-19.jpg" alt="Відпочинок біля озера">
+      <div class="event-photo-caption">Відпочинок біля озера</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('active-20.jpg')">
+      <img src="active-20.jpg" alt="Творча майстерня">
+      <div class="event-photo-caption">Творча майстерня</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('active-21.jpg')">
+      <img src="active-21.jpg" alt="Оригамі та творчість">
+      <div class="event-photo-caption">Оригамі та творчість</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('active-22.jpg')">
+      <img src="active-22.jpg" alt="Купання в озері">
+      <div class="event-photo-caption">Купання в озері</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('active-23.jpg')">
+      <img src="active-23.jpg" alt="Спільне навчання">
+      <div class="event-photo-caption">Спільне навчання</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('active-24.jpg')">
+      <img src="active-24.jpg" alt="Зимові ігри — сніговики">
+      <div class="event-photo-caption">Зимові ігри — сніговики</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('active-25.jpg')">
+      <img src="active-25.jpg" alt="Настільні ігри">
+      <div class="event-photo-caption">Настільні ігри</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('active-26.jpg')">
+      <img src="active-26.jpg" alt="Вечірні посиденьки">
+      <div class="event-photo-caption">Вечірні посиденьки</div>
+    </div>
+  </div>
+  </div>
+
+
+<div class="event-hero reveal" style="background:linear-gradient(135deg,#3a0a0a 0%,#8b1a1a 45%,#c0392b 75%,#e8a0a0 100%);">
+    <div class="event-hero-inner">
+      <h3 class="event-title-main">«Вишиванка —<br><em>мій генетичний код та оберіг здоров'я»</em></h3>
+      <p class="event-desc">
+        День вишиванки — це потужний сеанс етнотерапії. Для дитини, яка перебуває у складних життєвих обставинах, вишиванка стає не просто одягом, а символічним «панциром» захисту, зв'язком із корінням та інструментом самовираження. Вихованці малювали орнаменти на силуетах вишиванок разом із представниками поліції, брали участь у фестивалі просто неба — і кожен відчув, що несе у собі щось неруйнівне.
+      </p>
+      <div class="event-goals">
+        <span class="event-goal-tag">&#9741; Етнотерапія</span>
+        <span class="event-goal-tag">&#9825; Захист через традицію</span>
+        <span class="event-goal-tag">&#9670; Зв'язок із корінням</span>
+        <span class="event-goal-tag">&#9670; Самовираження та ідентичність</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="photo-carousel" style="grid-template-columns:repeat(3,1fr);">
+    <div class="event-photo-card" onclick="openLightbox('vyshyvanka-01.jpg')">
+      <img src="vyshyvanka-01.jpg" alt="Усі з малюнками вишиванок">
+      <div class="event-photo-caption">Усі з малюнками своїх вишиванок</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('vyshyvanka-02.jpg')">
+      <img src="vyshyvanka-02.jpg" alt="Малюємо орнаменти разом">
+      <div class="event-photo-caption">Малюємо орнаменти разом із поліцією</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('vyshyvanka-03.jpg')">
+      <img src="vyshyvanka-03.jpg" alt="Поліцейська допомагає">
+      <div class="event-photo-caption">Поліцейська допомагає малювати</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('vyshyvanka-04.jpg')">
+      <img src="vyshyvanka-04.jpg" alt="Фестиваль на вулиці">
+      <div class="event-photo-caption">Фестиваль вишиванок просто неба</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('vyshyvanka-05.jpg')">
+      <img src="vyshyvanka-05.jpg" alt="Вихователь і вихованці">
+      <div class="event-photo-caption">Вихователь разом із вихованцями</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('vyshyvanka-06.jpg')">
+      <img src="vyshyvanka-06.jpg" alt="Вишиванки у святковий день">
+      <div class="event-photo-caption">Вишиванки у святковий день</div>
+    </div>
+    <div class="event-photo-card" onclick="openLightbox('vyshyvanka-07.jpg')">
+      <img src="vyshyvanka-07.jpg" alt="Три вишиванки">
+      <div class="event-photo-caption">Три вишиванки — три характери</div>
+    </div>
+  </div>
+
+
+</section>
+
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">&#10005;</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<hr class="divider">
+
+<!-- ── EDUCATION ──────────────────────────── -->
+
+</section>
+<section id="education">
+  <div class="section-label reveal">Освіта</div>
+  <h2 class="section-title reveal"><span>Вища освіта</span></h2>
+
+  <div class="edu-block">
+    <div class="edu-item reveal">
+      <div class="edu-year">2006</div>
+      <div>
+        <div class="edu-content-title">Прикарпатський національний університет імені Василя Стефаника</div>
+        <div class="edu-content-sub">
+          Спеціальність: «Початкове навчання»<br>
+          Кваліфікація: вчитель початкових класів і хореографії<br>
+          Диплом ВА&nbsp;№&nbsp;30184670 &bull; 1 липня 2006 р. &bull; Ректор: Б.К. Остафійчук
+        </div>
+        <span class="edu-badge">Повна вища освіта</span>
+        <a href="%D0%A1%D0%BA%D0%B0%D0%BD%D0%BE%D0%B2%D0%B0%D0%BD%D0%BE_20251016-1355.pdf" target="_blank" class="edu-dl">&#128065; Переглянути диплом</a>
+        <a href="%D0%A1%D0%BA%D0%B0%D0%BD%D0%BE%D0%B2%D0%B0%D0%BD%D0%BE_20251016-1355.pdf" download="Диплом_Танчак_2006.pdf" class="edu-dl" style="margin-left:0.5rem">&#11015; Завантажити</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ── CERTIFICATES ────────────────────────── -->
+<section id="certs">
+  <div class="section-label reveal">Підвищення кваліфікації</div>
+  <h2 class="section-title reveal"><span>Сертифікати</span> та свідоцтва</h2>
+  <p class="section-lead reveal">Офіційні документи, підписані електронним підписом ЗОІППО. Натисніть для перегляду або завантажте PDF.</p>
+
+  <div class="certs-grid">
+
+    <div class="cert-card reveal">
+      <div class="cert-card-top">
+        <div class="cert-icon">&#128203;</div>
+        <div>
+          <div class="cert-title">Свідоцтво про підвищення кваліфікації</div>
+          <div class="cert-sub">СПК № 02136146/0100-25 &bull; ЗОІППО<br>Вихователі закладів загальної середньої освіти з інтернатами (пансіонами)<br>20 січня — 5 лютого 2025 р.</div>
+          <span class="cert-hours">75 год &bull; 2,50 кред.</span>
+        </div>
+      </div>
+      <div class="cert-actions">
+        <a href="%D0%9F%D1%96%D0%B4%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B8__%D0%A2%D0%90%D0%9D%D0%A7%D0%90%D0%9A.pdf" target="_blank" class="btn-view">&#128065; Відкрити</a>
+        <a href="%D0%9F%D1%96%D0%B4%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B8__%D0%A2%D0%90%D0%9D%D0%A7%D0%90%D0%9A.pdf" download="Свідоцтво_0100-25_Танчак.pdf" class="btn-dl">&#11015;</a>
+      </div>
+    </div>
+
+    <div class="cert-card reveal">
+      <div class="cert-card-top">
+        <div class="cert-icon">&#128196;</div>
+        <div>
+          <div class="cert-title">Сертифікат про підвищення кваліфікації</div>
+          <div class="cert-sub">№ 02136146-2079/2025 &bull; ЗОІППО<br>Тренінг: Профілактика емоційного вигорання та підтримка психічного здоров'я педагогів<br>2–5 червня 2025 р. &bull; Тренер: Юлія Чемодурова</div>
+          <span class="cert-hours">16 год &bull; 0,52 кред.</span>
+        </div>
+      </div>
+      <div class="cert-actions">
+        <a href="%D0%9F%D1%96%D0%B4%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B8__%D0%A2%D0%90%D0%9D%D0%A7%D0%90%D0%9A__2_.pdf" target="_blank" class="btn-view">&#128065; Відкрити</a>
+        <a href="%D0%9F%D1%96%D0%B4%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B8__%D0%A2%D0%90%D0%9D%D0%A7%D0%90%D0%9A__2_.pdf" download="Сертифікат_2079-2025_Танчак.pdf" class="btn-dl">&#11015;</a>
+      </div>
+    </div>
+
+    <div class="cert-card reveal">
+      <div class="cert-card-top">
+        <div class="cert-icon">&#128196;</div>
+        <div>
+          <div class="cert-title">Сертифікат про підвищення кваліфікації</div>
+          <div class="cert-sub">№ 02136146-2217/2025 &bull; ЗОІППО<br>Тренінг: Організація освітнього процесу в умовах інклюзивного навчання в закладах дошкільної освіти<br>9–12 червня 2025 р. &bull; Тренер: Ірина Мінакова</div>
+          <span class="cert-hours">16 год &bull; 0,52 кред.</span>
+        </div>
+      </div>
+      <div class="cert-actions">
+        <a href="%D0%A1%D0%BA%D0%B0%D0%BD%D0%BE%D0%B2%D0%B0%D0%BD%D0%BE_20251015-1358.pdf" target="_blank" class="btn-view">&#128065; Відкрити</a>
+        <a href="%D0%A1%D0%BA%D0%B0%D0%BD%D0%BE%D0%B2%D0%B0%D0%BD%D0%BE_20251015-1358.pdf" download="Сертифікат_2217-2025_Танчак.pdf" class="btn-dl">&#11015;</a>
+      </div>
+    </div>
+
+    <div class="cert-card reveal">
+      <div class="cert-card-top">
+        <div class="cert-icon">&#128196;</div>
+        <div>
+          <div class="cert-title">Сертифікат про підвищення кваліфікації</div>
+          <div class="cert-sub">№ 02136146-1220/2026 &bull; ЗОІППО<br>Тренінг: Нейропедагогіка в сучасній освіті: як допомогти мозку вчитись<br>2–4 березня 2026 р. &bull; Тренер: Тетяна Гура</div>
+          <span class="cert-hours">16 год &bull; 0,52 кред.</span>
+        </div>
+      </div>
+      <div class="cert-actions">
+        <a href="%D0%9F%D1%96%D0%B4%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B8__%D0%A2%D0%B0%D0%BD%D1%87%D0%B0%D0%BA__3_.pdf" target="_blank" class="btn-view">&#128065; Відкрити</a>
+        <a href="%D0%9F%D1%96%D0%B4%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B8__%D0%A2%D0%B0%D0%BD%D1%87%D0%B0%D0%BA__3_.pdf" download="Сертифікат_1220-2026_Танчак.pdf" class="btn-dl">&#11015;</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ── CONTACT ────────────────────────────── -->
+<section id="contact">
+  <div class="section-label">Контакт</div>
+  <h2 class="section-title">Зв'яжіться<br><span>зі мною</span></h2>
+  <p class="contact-text">Відкрита до співпраці, обміну досвідом та методичних дискусій. Запрошую колег до діалогу.</p>
+  <div class="contact-place">
+    Оріхівський обласний центр<br>
+    соціально-психологічної реабілітації дітей<br>
+    Запорізька область
+  </div>
+</section>
+
+<footer>
+  <p>&#169; 2026 &bull; Танчак Зоряна Зіновіївна</p>
+  <span class="footer-name">Вихователь &bull; Спеціаліст I категорії</span>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
+  }, {threshold:0.05, rootMargin:'0px 0px -30px 0px'});
+  reveals.forEach(r => obs.observe(r));
+
+  // Modal
+  function openModal(id){ document.getElementById('modal-'+id).classList.add('open'); document.body.style.overflow='hidden'; }
+  function closeModal(id){ document.getElementById('modal-'+id).classList.remove('open'); document.body.style.overflow=''; }
+  document.querySelectorAll('.modal-overlay').forEach(o => {
+    o.addEventListener('click', e => { if(e.target===o){ o.classList.remove('open'); document.body.style.overflow=''; } });
+  });
+  document.addEventListener('keydown', e => {
+    if(e.key==='Escape') document.querySelectorAll('.modal-overlay.open').forEach(o=>{ o.classList.remove('open'); document.body.style.overflow=''; });
+  });
+
+
+  function openLightbox(src){ document.getElementById('lightbox-img').src=src; document.getElementById('lightbox').classList.add('open'); document.body.style.overflow='hidden'; }
+  function closeLightbox(){ document.getElementById('lightbox').classList.remove('open'); document.getElementById('lightbox-img').src=''; document.body.style.overflow=''; }
+
+  // Active nav highlight
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    sections.forEach(s => { if(window.scrollY >= s.offsetTop - 80) cur = s.id; });
+    navLinks.forEach(a => { a.style.color = a.getAttribute('href')==='#'+cur ? 'var(--sage-dark)' : ''; });
+  });
+</script>
+</body>
+</html>
